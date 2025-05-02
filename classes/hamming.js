@@ -103,6 +103,20 @@ class HammingCode {
       encoded: encoded
     };
   }
+  feature/second-function-BitString
+  static toBitString(bitArray) {
+    if (!Array.isArray(bitArray) || !bitArray.every(b => b === 0 || b === 1)) {
+      throw Error("toBitString: input must be an array of bits (0 or 1)");
+    }
+    return bitArray.join('');
+  }
+  
+  static fromBitString(bitString) {
+    if (typeof bitString !== 'string' || !/^[01]+$/.test(bitString)) {
+      throw Error("fromBitString: input must be a binary string");
+    }
+    return bitString.split('').map(bit => parseInt(bit, 10));
+  }
   
 }
 
