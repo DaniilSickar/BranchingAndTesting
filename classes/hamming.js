@@ -95,6 +95,14 @@ class HammingCode {
 
     return errorPosition === 0;
   }
+  static generateRandomEncoded() {
+    const randomBits = Array.from({ length: 4 }, () => Math.round(Math.random()));
+    const encoded = HammingCode.encode(randomBits);
+    return {
+      original: randomBits,
+      encoded: encoded
+    };
+  }
   static toBitString(bitArray) {
     if (!Array.isArray(bitArray) || !bitArray.every(b => b === 0 || b === 1)) {
       throw Error("toBitString: input must be an array of bits (0 or 1)");
