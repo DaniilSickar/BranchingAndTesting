@@ -29,3 +29,35 @@ describe('Hamming code testing', function() {
   });
 });
 
+
+describe('unit tests', function() {
+  
+  it('should encode and decode correctly without error', function() {
+    const input = [1, 0, 1, 1];
+    const encoded = hamming.encode(input);
+    const decoded = hamming.decode(encoded);
+    assert.deepEqual(decoded, input, 'Decoded data should match original input');
+  });
+
+  it('should detect and correct a single-bit error', function() {
+    const input = [0, 1, 0, 1];
+    const encoded = hamming.encode(input);
+    const corrupted = hamming.injectError(encoded, 4); // flip bit at position 4
+    const decoded = hamming.decode(corrupted);
+    assert.deepEqual(decoded, input, 'Decoded data should match original input after correction');
+  });
+
+  it('should validate correct code as valid', function() {
+    const input = [1, 1, 0, 0];
+    const encoded = hamming.encode(input);
+    const isValid = hamming.isValid(encoded);
+    assert.isTrue(isValid, 'Encoded data should be valid');
+  });
+
+  it('should generate random valid encoded data', function() {
+    const { original, encoded } = hamming.generateRandomEncoded();
+    const decoded = hamming.decode(encoded);
+    assert.deepEqual(decoded, original, 'Randomly generated encoded data should decode correctly');
+  });
+
+});
